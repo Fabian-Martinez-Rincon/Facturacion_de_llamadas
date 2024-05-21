@@ -1,5 +1,5 @@
-<div align="center">
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=30&duration=1200&pause=1000&color=FFFFFF&center=true&width=475&lines=Ejercicio 3 - Facturación de llamadas"/>
+<div>
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=30&duration=1200&pause=1000&color=FFFFFF&width=900&center=true&lines=Ejercicio 3 - Facturación de llamadas"/>
 </div>
 
 _Importante: Aprobando este ejercicio, no será necesario rendir el tema Refactoring en el parcial. Fecha límite de entrega: 24/05/2024 23:59 hs (máximo 2 integrantes por grupo)._
