@@ -8,8 +8,8 @@ public class Llamada {
 
 	public Llamada(String tipoLlamada, String origen, String destino, int duracion) {
 		this.tipoDeLlamada = tipoLlamada;
-		this.origen= origen;
-		this.destino= destino;
+		this.origen = origen;
+		this.destino = destino;
 		this.duracion = duracion;
 	}
 

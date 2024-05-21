@@ -15,11 +15,10 @@ public class Empresa {
 		boolean encontre = guia.getLineas().contains(str);
 		if (!encontre) {
 			guia.getLineas().add(str);
-			encontre= true;
+			encontre = true;
 			return encontre;
-		}
-		else {
-			encontre= false;
+		} else {
+			encontre = false;
 			return encontre;
 		}
 	}
@@ -36,8 +35,7 @@ public class Empresa {
 			var.setTipo(tipo);
 			var.setNumeroTelefono(tel);
 			var.setDNI(data);
-		}
-		else if (tipo.equals("juridica")) {
+		} else if (tipo.equals("juridica")) {
 			String tel = this.obtenerNumeroLibre();
 			var.setNombre(nombre);
 			var.setTipo(tipo);
@@ -60,17 +58,19 @@ public class Empresa {
 		for (Llamada l : cliente.llamadas) {
 			double auxc = 0;
 			if (l.getTipoDeLlamada() == "nacional") {
-				// el precio es de 3 pesos por segundo más IVA sin adicional por establecer la llamada
+				// el precio es de 3 pesos por segundo más IVA sin adicional por establecer la
+				// llamada
 				auxc += l.getDuracion() * 3 + (l.getDuracion() * 3 * 0.21);
 			} else if (l.getTipoDeLlamada() == "internacional") {
-				// el precio es de 150 pesos por segundo más IVA más 50 pesos por establecer la llamada
+				// el precio es de 150 pesos por segundo más IVA más 50 pesos por establecer la
+				// llamada
 				auxc += l.getDuracion() * 150 + (l.getDuracion() * 150 * 0.21) + 50;
 			}
 
 			if (cliente.getTipo() == "fisica") {
-				auxc -= auxc*descuentoFis;
-			} else if(cliente.getTipo() == "juridica") {
-				auxc -= auxc*descuentoJur;
+				auxc -= auxc * descuentoFis;
+			} else if (cliente.getTipo() == "juridica") {
+				auxc -= auxc * descuentoJur;
 			}
 			c += auxc;
 		}
