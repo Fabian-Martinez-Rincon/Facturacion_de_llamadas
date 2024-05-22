@@ -36,4 +36,17 @@ public class GestorNumerosDisponibles {
 	public void cambiarTipoGenerador(String valor) {
 		this.tipoGenerador = valor;
 	}
+
+	// Se hizo un Move Method del metodo agregarNumeroTelefono de la clase Empresa a la clase GestorNumerosDisponibles
+	public boolean agregarNumeroTelefono(String str) {
+		boolean encontre = this.getLineas().contains(str);
+		if (!encontre) {
+			this.getLineas().add(str);
+			encontre = true;
+			return encontre;
+		} else {
+			encontre = false;
+			return encontre;
+		}
+	}
 }

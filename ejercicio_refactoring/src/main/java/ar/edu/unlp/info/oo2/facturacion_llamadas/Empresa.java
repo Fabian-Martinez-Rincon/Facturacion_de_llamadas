@@ -12,15 +12,16 @@ public class Empresa {
 	static double descuentoFis = 0;
 
 	public boolean agregarNumeroTelefono(String str) {
-		boolean encontre = guia.getLineas().contains(str);
-		if (!encontre) {
-			guia.getLineas().add(str);
-			encontre = true;
-			return encontre;
-		} else {
-			encontre = false;
-			return encontre;
-		}
+		return guia.agregarNumeroTelefono(str);
+		// boolean encontre = guia.getLineas().contains(str);
+		// if (!encontre) {
+		// 	guia.getLineas().add(str);
+		// 	encontre = true;
+		// 	return encontre;
+		// } else {
+		// 	encontre = false;
+		// 	return encontre;
+		// }
 	}
 
 	public String obtenerNumeroLibre() {
@@ -28,7 +29,7 @@ public class Empresa {
 	}
 
 	public Cliente registrarUsuario(String data, String nombre, String tipo) {
-		Cliente var = new Cliente();
+		Cliente var = new Cliente(); // Cliente (nombre, tipo, tel, data)
 		if (tipo.equals("fisica")) {
 			var.setNombre(nombre);
 			String tel = this.obtenerNumeroLibre();
