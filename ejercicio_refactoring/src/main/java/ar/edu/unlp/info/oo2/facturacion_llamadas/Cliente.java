@@ -29,16 +29,16 @@ public class Cliente {
 	public void setNumeroTelefono(String numeroTelefono) {
 		this.numeroTelefono = numeroTelefono;
 	}
-	public String getCuit() {
-		return cuit;
-	}
-	public void setCuit(String cuit) {
-		this.cuit = cuit;
-	}
-	public String getDNI() {
-		return dni;
-	}
-	public void setDNI(String dni) {
-		this.dni = dni;
-	}
+	// public String getCuit() {
+	// 	return cuit;
+	// }
+	// public void setCuit(String cuit) {
+	// 	this.cuit = cuit;
+	// }
+	// public String getDNI() {
+	// 	return dni;
+	// }
+	// public void setDNI(String dni) {
+	// 	this.dni = dni;
+	// }
 }
