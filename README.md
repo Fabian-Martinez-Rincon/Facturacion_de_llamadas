@@ -1,6 +1,12 @@
 
-# 👷 TP Refactoring 🔨
+<h1 align="center">👷 TP Refactoring<img
+src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjQ2OXN1eTRsd3BhNGp6Yml5MjMxazJzeGJ4cTYzenBxZHQyNzBnZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/PZ93mDmGf2z1xL7UjN/giphy.gif" height="32" /></h1>
 
+<h3 align="center">UML Inicial</h3>
+
+<img src="/uml-inicial.drawio.png">
+
+---
 
 - 📌 [Refactor 1](#refactor-1)
 	- [Move Method](#refactor-1-move-method)
@@ -17,9 +23,8 @@
 	- [Reinventando la rueda - Move field - Rename variables](#refactor-4-reinventando-la-rueda---move-field---rename-variables)
 - 📌 [Refactor 5](#refactor-5)
 	- [Replace Conditional Logic with Strategy - Replace Magic Strings with Class Type](#refactor-5-replace-conditional-logic-with-strategy---replace-magic-strings-with-class-type)
-- [Codigo Final](#codigo-final)
 
----
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 ### Codigo Final
 
@@ -40,13 +45,25 @@
 
 ---
 
+<h3 align="center">UML Final</h3>
+
+<img src="/uml-final.drawio.png">
+
+
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
+
+
+
 ## 🚧 Refactor 1
 
 
 🦨 **Malos Olores**
 
-- **Feature Envy** Se observa una mala asignación de responsabilidades en la clase ``Empresa``, asociada a una evidente envidia de atributos.
-- Encontramos tareas en esta clase que deberían ser responsabilidad de ``GestorNumeroDisponibles()``.
+**Feature Envy** Se observa una mala asignación de responsabilidades en la clase ``Empresa``, asociada a una evidente envidia de atributos.
+
+Encontramos tareas en esta clase que deberían ser responsabilidad de ``GestorNumeroDisponibles()``.
 
 
 
@@ -65,9 +82,9 @@ public class Empresa{
 		}
 	}
 }
-
-
 ```
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 ### 🚧 Refactor 1 Move Method
 
@@ -102,14 +119,19 @@ public class Empresa{
 
 🦨 *Malos Olores*
 
-- **Inappropriate Intimacy:** El método ``getLineas()`` expone directamente el conjunto interno ``lineas``, lo cual permite a otras partes del código modificar directamente esta colección. Esto puede llevar a problemas de manejo de estado y viola el principio de encapsulamiento.
-- **Feature Envy:** Los métodos en `GestorNumerosDisponibles` hacen un uso excesivo del getter getLineas() en lugar de interactuar directamente con el campo ``lineas``.
-- **Duplicate Code:** El uso de una variable booleana ``encontre`` para manejar el control de flujo es innecesariamente complicado y duplica la lógica de verificación de existencia y adición en el conjunto.
+**Inappropriate Intimacy:** El método ``getLineas()`` expone directamente el conjunto interno ``lineas``, lo cual permite a otras partes del código modificar directamente esta colección. Esto puede llevar a problemas de manejo de estado y viola el principio de encapsulamiento.
+
+**Feature Envy:** Los métodos en `GestorNumerosDisponibles` hacen un uso excesivo del getter getLineas() en lugar de interactuar directamente con el campo ``lineas``.
+
+**Duplicate Code:** El uso de una variable booleana ``encontre`` para manejar el control de flujo es innecesariamente complicado y duplica la lógica de verificación de existencia y adición en el conjunto.
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 ### Refactor 1 Encapsulate Collection - Remove Method
 
-- **Refactoring**: Modificar getLineas() para que no retorne directamente la colección mutable. Mejor aún, eliminar este método si no es necesario y manejar toda la lógica de adición o eliminación a través de métodos específicos en GestorNumerosDisponibles.
-- **Remove Method** Eliminamos getLineas() para que no pueda ser modificado por fuera de la clase, aseguramos que toda manipulación de lineas se haga a través de métodos de la clase misma.
+**Refactoring**: Modificar getLineas() para que no retorne directamente la colección mutable. Mejor aún, eliminar este método si no es necesario y manejar toda la lógica de adición o eliminación a través de métodos específicos en GestorNumerosDisponibles.
+
+**Remove Method** Eliminamos getLineas() para que no pueda ser modificado por fuera de la clase, aseguramos que toda manipulación de lineas se haga a través de métodos de la clase misma.
 
 *Refactor aplicado:*
 
@@ -129,19 +151,24 @@ public class Empresa{
 }
 ```
 
-
----
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 
 ## 🚧 Refactor 2
 
 🦨 *Malos Olores Detectados*
 
-- **Duplicate Code**: El código original tenía estructuras condicionales repetitivas para configurar objetos de `Cliente`, variando solo en la asignación de `dni` para clientes físicos y `cuit` para clientes jurídicos. Esto no solo duplica el código sino que también complica las modificaciones futuras.
-- **Switch Statements**: Aunque en tu refactoring final aún se utiliza un switch, este es movido a una fábrica, lo cual es un lugar más apropiado que dispersarlo por el código de negocio.
-- **Large Class**: La clase `Cliente` en el código original podría expandirse desproporcionadamente si se agregaran más tipos de clientes, con más condiciones y más campos.
-- **Inappropriate Intimacy**: La clase `Empresa` accede directamente a la lista de llamadas de `Cliente`. Esto viola el principio de encapsulación y crea una dependencia innecesaria entre las clases.
-- **Dead Code (Código Muerto)**: El campo `tipo` de la clase `Cliente` no se utiliza en el código original, ya que el tipo de cliente se puede inferir a partir de la clase concreta que se esté utilizando. Además existen getters y setters que no se utilizan.
+**Duplicate Code**: El código original tenía estructuras condicionales repetitivas para configurar objetos de `Cliente`, variando solo en la asignación de `dni` para clientes físicos y `cuit` para clientes jurídicos. Esto no solo duplica el código sino que también complica las modificaciones futuras.
+
+**Switch Statements**: Aunque en tu refactoring final aún se utiliza un switch, este es movido a una fábrica, lo cual es un lugar más apropiado que dispersarlo por el código de negocio.
+
+**Large Class**: La clase `Cliente` en el código original podría expandirse desproporcionadamente si se agregaran más tipos de clientes, con más condiciones y más campos.
+
+**Inappropriate Intimacy**: La clase `Empresa` accede directamente a la lista de llamadas de `Cliente`. Esto viola el principio de encapsulación y crea una dependencia innecesaria entre las clases.
+
+**Dead Code (Código Muerto)**: El campo `tipo` de la clase `Cliente` no se utiliza en el código original, ya que el tipo de cliente se puede inferir a partir de la clase concreta que se esté utilizando. Además existen getters y setters que no se utilizan.
+
+**Speculative Generality:** La clase `Cliente` tiene metodos que no se utiliza. 
 
 > Incluimos constructores en nuestras clases para garantizar que cada objeto se inicialice con todos los datos necesarios. Esto evita errores y hace el código más claro y fácil de entender. Es fundamental para asegurar que todos los objetos comiencen en un estado válido y seguro.
 
@@ -210,6 +237,8 @@ public class Cliente {
 }
 ```
 
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
 ### 🚧 Refactor 2 Replace Conditional with Polymorphism - Remove method - Remove Field - Encapsulate Field
 
 Creamos dos subclases, ClientePersonaFisica y ClientePersonaJuridica, desde la clase original Cliente y la hacemos abstracta. Esto no solo eliminó la duplicación de código sino que también aseguró que cada subclase maneje sus propios datos específicos de manera encapsulada.
@@ -219,6 +248,7 @@ Creamos dos subclases, ClientePersonaFisica y ClientePersonaJuridica, desde la c
 - Eliminamos los campos `dni` y `cuit`  y sus respectivos getters y setters de la clase `Cliente`, ya que se movieron a las subclases `ClientePersonaFisica` y `ClientePersonaJuridica`, respectivamente.
 - Cambiamos la visibilidad de la colección de `llamadas` de `Cliente` a privada para evitar que otras clases la manipulen directamente.
 - Eliminamos el parametro `tipo` del constructor de Cliente, ya que este se puede inferir a partir del tipo de subclase que se esté utilizando.
+- Eliminamos metodos que no se utilizan en las subclases de Cliente (getNombre(), getCuit(), getDNI(), setDNI(), setCuit()).
 
 *Refactor aplicado:*
 ```java
@@ -232,10 +262,6 @@ public abstract class Cliente {
 		this.numeroTelefono = numeroTelefono;
 	}
 	
-	public String getNombre() {
-		return nombre;
-	}
-	
 	public String getNumeroTelefono() {
 		return numeroTelefono;
 	}
@@ -247,12 +273,6 @@ public class ClientePersonaJuridica extends Cliente{
 		super(nombre, numeroTelefono);
 		this.cuit = cuit;
 	}
-	public String getCuit() {
-		return cuit;
-	}
-	public void setCuit(String cuit) {
-		this.cuit = cuit;
-	}
 }
 
 public class ClientePersonaFisica extends Cliente{
@@ -261,14 +281,10 @@ public class ClientePersonaFisica extends Cliente{
 		super(nombre, numeroTelefono);
 		this.dni = dni;
 	}
-	public String getDNI() {
-		return dni;
-	}
-	public void setDNI(String dni) {
-		this.dni = dni;
-	}
 }
 ```
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 ### 🚧 Refactor 2 Factory Method
 
@@ -300,7 +316,7 @@ public class Empresa{
 }
 ```
 
----
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 ## 🚧 Refactor 3
 
@@ -323,7 +339,9 @@ public class Empresa {
 }
 ```
 
-### 🚧Refactor 3 Encapsulate Collection - Move Method - Hide Delegate
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
+### 🚧 Refactor 3 Encapsulate Collection - Move Method - Hide Delegate
 
 Encapsulamos la gestión de la colección de llamadas dentro de la clase Cliente. Esto implica crear métodos en la clase Cliente para añadir llamadas, en lugar de modificar la lista directamente desde fuera.
 
@@ -352,7 +370,7 @@ public class Empresa {
 }
 ```
 
----
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 
 ## 🚧 Refactor 4
@@ -394,6 +412,8 @@ public class Empresa{
 }
 ```
 
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
 ### 🚧 Refactor 4 Move Method - Rename Method
 
 - Movimos el metodo `calcularCostoTotalLlamadas()` de la clase `Empresa` a la clase `Cliente` para que sea responsabilidad de la clase `Cliente` calcular el costo total de sus llamadas.
@@ -432,6 +452,8 @@ public class Cliente{
 	}
 }
 ```
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 ### 🚧 Refactor 4 Replace Conditional with Polymorphism - Remove Field
 
@@ -478,6 +500,8 @@ public class LlamadaInternacional extends Llamada{
 
 ```
 
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
 ### 🚧 Refactor 4 Factory Method - Rename Variables
 
 - Creamos una clase `LlamadaFactory` con un método `crearLlamada` que se encarga de instanciar el tipo correcto de llamada según el tipo especificado. Esto centraliza la creación de objetos `Llamada` y facilita la extensión del sistema para incorporar nuevos tipos de llamadas en el futuro.
@@ -506,6 +530,8 @@ public class Empresa {
     }
 }
 ```
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 ### 🚧 Refactor 4 Reinventando la rueda - Move field - Rename variables 
 
@@ -622,7 +648,7 @@ public class Empresa {
 }
 ```
 
----
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 ### 🚧 Refactor 5
 
@@ -667,6 +693,7 @@ public class GestorNumerosDisponibles {
 }
 ```
 
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 ### 🚧 Refactor 5 Replace Conditional Logic with Strategy - Replace Magic Strings with Class Type
 
@@ -731,3 +758,5 @@ class EmpresaTest {
 	}
 }
 ```
+
+<div align="center"><img src='https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHBhOWk1bTV3M3RpNGIyaHp1b2Y1eG9pajM5cWM0ajVmeXIwdXJxdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0Hlv6BhcgSCxVbjO/giphy.gif'></div>

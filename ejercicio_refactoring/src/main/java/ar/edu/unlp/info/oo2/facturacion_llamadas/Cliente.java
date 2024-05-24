@@ -17,10 +17,6 @@ public abstract class Cliente {
 		this.llamadas.add(llamada);
 	}
 	
-	public String getNombre() {
-		return nombre;
-	}
-
 	public String getNumeroTelefono() {
 		return numeroTelefono;
 	}
