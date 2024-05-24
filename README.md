@@ -605,7 +605,7 @@ public class Empresa {
 *Malos Olores*
 
 - **Switch Statements:** El uso de switch para manejar diferentes formas de obtener un número (último, primero, aleatorio) puede complicar la extensión del código. Si decides agregar más formas de seleccionar un número, este switch crecerá en complejidad y tamaño.
-
+- **Magic Strings**: Las cadenas "ultimo", "primero", y "random" utilizadas en el `switch` son ejemplos de "magic strings". Estos valores están codificados directamente en la lógica, haciendo que el código sea más difícil de mantener y propenso a errores si se escribe incorrectamente en algún lugar.
 - **Duplicated Code:** Hay una lógica duplicada en cada caso del switch, particularmente en el proceso de remover un número de lineas después de seleccionarlo.
 
 ```java
@@ -637,10 +637,6 @@ public class GestorNumerosDisponibles {
 		this.tipoGenerador = valor;
 	}
 
-	// public void setTipoGenerador(String tipoGenerador) {
-	// 	this.tipoGenerador = tipoGenerador;
-	// }
-
 	public boolean agregarNumeroTelefono(String numero) {
 		return this.lineas.add(numero);
 	}	
@@ -648,38 +644,53 @@ public class GestorNumerosDisponibles {
 ```
 
 
-### Refactor 5 Replace Conditional with Polymorphism 
+### Refactor 5 Replace Conditional Logic with Strategy - Replace Magic Strings with Class Type
 
-- Definimos el patrón Strategy, creamos la interfaz SeleccionadorDeNumero que varias las implementaciones que encapsulan los diferentes comportamientos (último, primero, aleatorio).
+- Basandonos en el patrón Strategy, creamos la interfaz ``Generador`` que varian las implementaciones que encapsulan los diferentes comportamientos (último, primero, aleatorio).
+- En lugar de usar cadenas para determinar el comportamiento, usamos los tipos de las clases directamente. Esto elimina la necesidad de cadenas mágicas y reduce la posibilidad de errores en tiempo de ejecución debido a cadenas mal escritas.
+
 
 ```java
-public interface SeleccionadorDeNumero {
-    String seleccionarNumero(SortedSet<String> lineas);
+public interface Generador {    
+    public  String  obtenerNumeroLibre(SortedSet<String> lineas);	 
 }
 
-public class UltimoSeleccionador implements SeleccionadorDeNumero {
-    public String seleccionarNumero(SortedSet<String> lineas) {
+public class UltimoGenerador implements Generador {
+    public String obtenerNumeroLibre(SortedSet<String> lineas) {
         String linea = lineas.last();
         lineas.remove(linea);
         return linea;
     }
 }
 
-public class PrimeroSeleccionador implements SeleccionadorDeNumero {
-    public String seleccionarNumero(SortedSet<String> lineas) {
+public class PrimeroGenerador implements Generador {
+    public String obtenerNumeroLibre(SortedSet<String> lineas) {
         String linea = lineas.first();
         lineas.remove(linea);
         return linea;
     }
 }
 
-public class RandomSeleccionador implements SeleccionadorDeNumero {
-    public String seleccionarNumero(SortedSet<String> lineas) {
+public class RandomGenerador implements Generador {
+    public String obtenerNumeroLibre(SortedSet<String> lineas) {
         List<String> lista = new ArrayList<>(lineas);
         String linea = lista.get(new Random().nextInt(lista.size()));
         lineas.remove(linea);
         return linea;
     }
+}
+
+public class GestorNumerosDisponibles {
+	private SortedSet<String> lineas = new TreeSet<String>(); 
+	private Generador tipoGenerador = new UltimoGenerador();
+
+	public String obtenerNumeroLibre() {
+		return tipoGenerador.obtenerNumeroLibre(lineas);
+	}
+
+	public void cambiarTipoGenerador(Genedor generador) {
+		this.tipoGenerador = generador;
+	}
 }
 ```
 
@@ -696,7 +707,8 @@ public class RandomSeleccionador implements SeleccionadorDeNumero {
 - [Llamada Nacional]()
 - [Test]()
 
-###
+---
+
 
 
 
