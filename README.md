@@ -2,27 +2,29 @@
 <h1 align="center">👷 TP Refactoring<img
 src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjQ2OXN1eTRsd3BhNGp6Yml5MjMxazJzeGJ4cTYzenBxZHQyNzBnZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/PZ93mDmGf2z1xL7UjN/giphy.gif" height="32" /></h1>
 
+---
+
 <h3 align="center">UML Inicial</h3>
 
 <img src="/uml-inicial.drawio.png">
 
 ---
 
-- 📌 [Refactor 1](#refactor-1)
-	- [Move Method](#refactor-1-move-method)
-	- [Encapsulate Collection y Remove Method](#refactor-1-encapsulate-collection---remove-method)
-- 📌 [Refactor 2](#refactor-2)
-	- [Replace Conditional with Polymorphism - Remove method - Remove Field - Encapsulate Field](#refactor-2-replace-conditional-with-polymorphism---remove-method---remove-field---encapsulate-field)
+- 📌 [Refactor 1](#-refactor-1)
+	- [Move Method](#-refactor-1-move-method)
+	- [Encapsulate Collection y Remove Method](#-refactor-1-encapsulate-collection---remove-method)
+- 📌 [Refactor 2](#-refactor-2)
+	- [Replace Conditional with Polymorphism - Remove method - Remove Field - Encapsulate Field](#-refactor-2-replace-conditional-with-polymorphism---remove-method---remove-field---encapsulate-field)
 	- [Factory Method](#refactor-2-factory-method)
-- 📌 [Refactor 3](#refactor-3)
-	- [Encapsulate Collection - Move Method - Hide Delegate](#refactor-3-encapsulate-collection---move-method---hide-delegate)
-- 📌 [Refactor 4](#refactor-4)
-	- [Move Method - Rename Method](#refactor-4-move-method---rename-method)
-	- [Replace Conditional with Polymorphism - Remove Field](#refactor-4-replace-conditional-with-polymorphism---remove-field)
-	- [Factory Method](#refactor-4-factory-method)
-	- [Reinventando la rueda - Move field - Rename variables](#refactor-4-reinventando-la-rueda---move-field---rename-variables)
-- 📌 [Refactor 5](#refactor-5)
-	- [Replace Conditional Logic with Strategy - Replace Magic Strings with Class Type](#refactor-5-replace-conditional-logic-with-strategy---replace-magic-strings-with-class-type)
+- 📌 [Refactor 3](#-refactor-3)
+	- [Encapsulate Collection - Move Method - Hide Delegate](#-refactor-3-encapsulate-collection---move-method---hide-delegate)
+- 📌 [Refactor 4](#-refactor-4)
+	- [Move Method - Rename Method](#-refactor-4-move-method---rename-method)
+	- [Replace Conditional with Polymorphism - Remove Field](#-refactor-4-replace-conditional-with-polymorphism---remove-field)
+	- [Factory Method](#-refactor-4-factory-method---rename-variables)
+	- [Reinventando la rueda - Move field - Rename variables](#-refactor-4-reinventando-la-rueda---move-field---rename-variables)
+- 📌 [Refactor 5](#-refactor-5)
+	- [Replace Conditional Logic with Strategy - Replace Magic Strings with Class Type](#-refactor-5-replace-conditional-logic-with-strategy---replace-magic-strings-with-class-type)
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
@@ -127,7 +129,7 @@ public class Empresa{
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-### Refactor 1 Encapsulate Collection - Remove Method
+### 🚧 Refactor 1 Encapsulate Collection - Remove Method
 
 **Refactoring**: Modificar getLineas() para que no retorne directamente la colección mutable. Mejor aún, eliminar este método si no es necesario y manejar toda la lógica de adición o eliminación a través de métodos específicos en GestorNumerosDisponibles.
 
@@ -759,4 +761,8 @@ class EmpresaTest {
 }
 ```
 
+---
+
 <div align="center"><img src='https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHBhOWk1bTV3M3RpNGIyaHp1b2Y1eG9pajM5cWM0ajVmeXIwdXJxdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0Hlv6BhcgSCxVbjO/giphy.gif'></div>
+
+---
