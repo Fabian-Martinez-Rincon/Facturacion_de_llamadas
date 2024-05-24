@@ -1,21 +1,17 @@
 package ar.edu.unlp.info.oo2.facturacion_llamadas;
 
-public class Llamada {
-	private String tipoDeLlamada;
+public abstract class Llamada {	
 	private String origen;
 	private String destino;
 	private int duracion;
+	private static final double PORCENTAJE_IVA = 0.21;
 
-	public Llamada(String tipoLlamada, String origen, String destino, int duracion) {
-		this.tipoDeLlamada = tipoLlamada;
+	public Llamada(String origen, String destino, int duracion) { // quitamos el tipo de llamada		
 		this.origen = origen;
 		this.destino = destino;
 		this.duracion = duracion;
 	}
 
-	public String getTipoDeLlamada() {
-		return tipoDeLlamada;
-	}
 
 	public String getRemitente() {
 		return destino;
@@ -28,4 +24,17 @@ public class Llamada {
 	public String getOrigen() {
 		return origen;
 	}
+
+	public abstract double getPrecioSegundo();
+
+	public double getAdicional(){
+		return 0;
+	};
+
+	public double calcularMontoLlamada() {		
+        return ((this.duracion * this.getPrecioSegundo()) + ((this.duracion * this.getPrecioSegundo()) * PORCENTAJE_IVA)) + this.getAdicional();		
+    }
+
 }
+
+

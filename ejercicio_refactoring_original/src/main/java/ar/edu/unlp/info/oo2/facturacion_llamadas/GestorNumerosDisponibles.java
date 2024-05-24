@@ -6,8 +6,12 @@ import java.util.Random;
 import java.util.SortedSet;
 
 public class GestorNumerosDisponibles {
-	private SortedSet<String> lineas = new TreeSet<String>(); 
+	private SortedSet<String> lineas = new TreeSet<String>();
 	private String tipoGenerador = "ultimo";
+
+	public SortedSet<String> getLineas() {
+		return lineas;
+	}
 
 	public String obtenerNumeroLibre() {
 		String linea;
@@ -32,10 +36,4 @@ public class GestorNumerosDisponibles {
 	public void cambiarTipoGenerador(String valor) {
 		this.tipoGenerador = valor;
 	}
-
-	public boolean agregarNumeroTelefono(String numero) {
-		return this.lineas.add(numero);
-	}	
 }
-
-
