@@ -28,24 +28,9 @@ src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjQ2OXN1eTRsd3BhNGp6Yml5Mj
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-### Codigo Final
 
-- [Cliente](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/Cliente.java)
-- [ClienteFactory](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/ClienteFactory.java)
-- [ClientePersonaFisica](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/ClientePersonaFisica.java)
-- [ClientePersonaJuridica](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/ClientePersonaJuridica.java)
-- [Generador](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/Generador.java)
-- [GestorNumerosDisponibles](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/GestorNumerosDisponibles.java)
-- [Llamada](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/Llamada.java)
-- [LlamadaFactory](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/LlamadaFactory.java)
-- [LlamadaInternacional](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/LlamadaInternacional.java)
-- [Llamada Nacional](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/LlamadaNacional.java)
-- [PrimeroGenerador](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/PrimeroGenerador.java)
-- [RandomGenerador](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/RandomGenerador.java)
-- [UltimoGenerador](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/UltimoGenerador.java)
-- [Test](#test)
 
----
+
 
 <h3 align="center">UML Final</h3>
 
