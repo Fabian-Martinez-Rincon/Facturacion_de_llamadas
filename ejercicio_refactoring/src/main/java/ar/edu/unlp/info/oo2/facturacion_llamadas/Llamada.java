@@ -34,7 +34,6 @@ public abstract class Llamada {
 	public double calcularMontoLlamada() {		
         return ((this.duracion * this.getPrecioSegundo()) + ((this.duracion * this.getPrecioSegundo()) * PORCENTAJE_IVA)) + this.getAdicional();		
     }
-
 }
 
 

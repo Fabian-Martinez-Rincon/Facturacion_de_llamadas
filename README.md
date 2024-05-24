@@ -1,29 +1,49 @@
 
-### Indice
+# 👷 TP Refactoring 🔨
 
----
 
-- [Refactor 1](#refactor-1)
+- 📌 [Refactor 1](#refactor-1)
 	- [Move Method](#refactor-1-move-method)
 	- [Encapsulate Collection y Remove Method](#refactor-1-encapsulate-collection---remove-method)
-- [Refactor 2](#refactor-2)
+- 📌 [Refactor 2](#refactor-2)
 	- [Replace Conditional with Polymorphism - Remove method - Remove Field - Encapsulate Field](#refactor-2-replace-conditional-with-polymorphism---remove-method---remove-field---encapsulate-field)
 	- [Factory Method](#refactor-2-factory-method)
-- [Refactor 3](#refactor-3)
+- 📌 [Refactor 3](#refactor-3)
 	- [Encapsulate Collection - Move Method - Hide Delegate](#refactor-3-encapsulate-collection---move-method---hide-delegate)
-- [Refactor 4](#refactor-4)
+- 📌 [Refactor 4](#refactor-4)
 	- [Move Method - Rename Method](#refactor-4-move-method---rename-method)
 	- [Replace Conditional with Polymorphism - Remove Field](#refactor-4-replace-conditional-with-polymorphism---remove-field)
 	- [Factory Method](#refactor-4-factory-method)
 	- [Reinventando la rueda - Move field - Rename variables](#refactor-4-reinventando-la-rueda---move-field---rename-variables)
-- [Refactor 5](#refactor-5)
+- 📌 [Refactor 5](#refactor-5)
+	- [Replace Conditional Logic with Strategy - Replace Magic Strings with Class Type](#refactor-5-replace-conditional-logic-with-strategy---replace-magic-strings-with-class-type)
+- [Codigo Final](#codigo-final)
 
 ---
 
-## Refactor 1
+### Codigo Final
+
+- [Cliente](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/Cliente.java)
+- [ClienteFactory](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/ClienteFactory.java)
+- [ClientePersonaFisica](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/ClientePersonaFisica.java)
+- [ClientePersonaJuridica](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/ClientePersonaJuridica.java)
+- [Generador](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/Generador.java)
+- [GestorNumerosDisponibles](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/GestorNumerosDisponibles.java)
+- [Llamada](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/Llamada.java)
+- [LlamadaFactory](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/LlamadaFactory.java)
+- [LlamadaInternacional](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/LlamadaInternacional.java)
+- [Llamada Nacional](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/LlamadaNacional.java)
+- [PrimeroGenerador](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/PrimeroGenerador.java)
+- [RandomGenerador](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/RandomGenerador.java)
+- [UltimoGenerador](/ejercicio_refactoring/src/main/java/ar/edu/unlp/info/oo2/facturacion_llamadas/UltimoGenerador.java)
+- [Test](#test)
+
+---
+
+## 🚧 Refactor 1
 
 
-**Malos Olores**
+🦨 **Malos Olores**
 
 - **Feature Envy** Se observa una mala asignación de responsabilidades en la clase ``Empresa``, asociada a una evidente envidia de atributos.
 - Encontramos tareas en esta clase que deberían ser responsabilidad de ``GestorNumeroDisponibles()``.
@@ -49,9 +69,9 @@ public class Empresa{
 
 ```
 
-### Refactor 1 Move Method
+### 🚧 Refactor 1 Move Method
 
-- En primer lugar, realizamos un **Move method** del método ``agregarNumeroTelefono(String str)`` a la clase ``GestorNumeroDisponibles()``. 
+En primer lugar, realizamos un **Move method** del método ``agregarNumeroTelefono(String str)`` a la clase ``GestorNumeroDisponibles()``. 
 
 ```java
 public class GestorNumerosDisponibles {
@@ -80,7 +100,7 @@ public class Empresa{
 ```
 
 
-*Malos Olores*
+🦨 *Malos Olores*
 
 - **Inappropriate Intimacy:** El método ``getLineas()`` expone directamente el conjunto interno ``lineas``, lo cual permite a otras partes del código modificar directamente esta colección. Esto puede llevar a problemas de manejo de estado y viola el principio de encapsulamiento.
 - **Feature Envy:** Los métodos en `GestorNumerosDisponibles` hacen un uso excesivo del getter getLineas() en lugar de interactuar directamente con el campo ``lineas``.
@@ -113,9 +133,9 @@ public class Empresa{
 ---
 
 
-## Refactor 2
+## 🚧 Refactor 2
 
-#### Malos Olores Detectados:
+🦨 *Malos Olores Detectados*
 
 - **Duplicate Code**: El código original tenía estructuras condicionales repetitivas para configurar objetos de `Cliente`, variando solo en la asignación de `dni` para clientes físicos y `cuit` para clientes jurídicos. Esto no solo duplica el código sino que también complica las modificaciones futuras.
 - **Switch Statements**: Aunque en tu refactoring final aún se utiliza un switch, este es movido a una fábrica, lo cual es un lugar más apropiado que dispersarlo por el código de negocio.
@@ -190,7 +210,7 @@ public class Cliente {
 }
 ```
 
-### Refactor 2 Replace Conditional with Polymorphism - Remove method - Remove Field - Encapsulate Field
+### 🚧 Refactor 2 Replace Conditional with Polymorphism - Remove method - Remove Field - Encapsulate Field
 
 Creamos dos subclases, ClientePersonaFisica y ClientePersonaJuridica, desde la clase original Cliente y la hacemos abstracta. Esto no solo eliminó la duplicación de código sino que también aseguró que cada subclase maneje sus propios datos específicos de manera encapsulada.
 
@@ -250,11 +270,13 @@ public class ClientePersonaFisica extends Cliente{
 }
 ```
 
-### Refactor 2 Factory Method
+### 🚧 Refactor 2 Factory Method
 
 - Creamos una clase `ClienteFactory` con un método `crearCliente` que se encarga de instanciar el tipo correcto de cliente según el tipo especificado. Esto centraliza la creación de objetos `Cliente` y facilita la extensión del sistema para incorporar nuevos tipos de clientes en el futuro.
 - Quedando el método `registrarUsuario` de la clase `Empresa` más limpio y desacoplado de la lógica de creación de clientes.
+
 *Refactor aplicado:*
+
 ```java
 public class ClienteFactory{
 	public static Cliente crearCliente(String tipo, String nombre, String numeroTelefono, String data){
@@ -280,9 +302,9 @@ public class Empresa{
 
 ---
 
-## Refactor 3
+## 🚧 Refactor 3
 
-*Malos Olores Detectados*
+🦨 *Malos Olores Detectados*
 
 - **Feature Envy:** El método muestra envidia de atributos ya que accede directamente a la lista de llamadas del Cliente origen para agregar una nueva llamada. Esto indica una alta dependencia de la estructura interna de otra clase, lo cual va en contra del principio de encapsulación.
 - **Inappropriate Intimacy:** Manipular directamente la lista de llamadas del Cliente desde otra clase podría ser considerado una intimidad inapropiada, pues el método no solo conoce detalles internos de otra clase, sino que también los modifica directamente.
@@ -301,12 +323,14 @@ public class Empresa {
 }
 ```
 
-### Refactor 3 Encapsulate Collection - Move Method - Hide Delegate
-- Encapsulamos la gestión de la colección de llamadas dentro de la clase Cliente. Esto implica crear métodos en la clase Cliente para añadir llamadas, en lugar de modificar la lista directamente desde fuera.
+### 🚧Refactor 3 Encapsulate Collection - Move Method - Hide Delegate
 
-- Consideramos mover parte de de la funcionalidad de `registrarLlamada()` de la clase `Empresa` a la clase `Cliente` creando un método `agregarLlamada()`. 
+Encapsulamos la gestión de la colección de llamadas dentro de la clase Cliente. Esto implica crear métodos en la clase Cliente para añadir llamadas, en lugar de modificar la lista directamente desde fuera.
 
-*Rafactor aplicado:*
+Consideramos mover parte de de la funcionalidad de `registrarLlamada()` de la clase `Empresa` a la clase `Cliente` creando un método `agregarLlamada()`. 
+
+*Rafactor aplicado*
+
 ```java
 public class Cliente {
     private List<Llamada> llamadas = new ArrayList<>();
@@ -319,7 +343,7 @@ public class Cliente {
 public class Empresa {
     private List<Llamada> llamadas = new ArrayList<>();
 
-    public Llamada registrarLlamada(Cliente origen, Cliente destino, String t, int duracion) {
+    public Llamada registrarLlamada(Cliente origen, Cliente destino, String tipo, int duracion) {
         Llamada llamada = new Llamada(t, origen.getNumeroTelefono(), destino.getNumeroTelefono(), duracion);
         this.llamadas.add(llamada);
         origen.agregarLlamada(llamada);
@@ -331,9 +355,9 @@ public class Empresa {
 ---
 
 
-## Refactor 4
+## 🚧 Refactor 4
 
-*Malos Olores Detectados*
+🦨 *Malos Olores Detectados*
 
 - **Feature Envy y Inappropriate Intimacy**: El método accede directamente a la lista interna de llamadas del `Cliente`. 
 - **String Comparison**: Está utilizando `==` para comparar strings, lo cual es inapropiado en Java para comparaciones de contenido de strings. Debería usar `.equals()`.
@@ -370,7 +394,7 @@ public class Empresa{
 }
 ```
 
-### Refactor 4 Move Method - Rename Method
+### 🚧 Refactor 4 Move Method - Rename Method
 
 - Movimos el metodo `calcularCostoTotalLlamadas()` de la clase `Empresa` a la clase `Cliente` para que sea responsabilidad de la clase `Cliente` calcular el costo total de sus llamadas.
 - Edita el método `calcularCostoTotalLlamadas()` de la clase `Empresa` para que llame al método `calcularCostoTotalLlamadas()` de la clase `Cliente`.
@@ -409,7 +433,7 @@ public class Cliente{
 }
 ```
 
-### Refactor 4 Replace Conditional with Polymorphism - Remove Field
+### 🚧 Refactor 4 Replace Conditional with Polymorphism - Remove Field
 
 - Creamos una clase abstracta `Llamada` con métodos abstractos para calcular el costo de la llamada. Luego, creamos subclases `LlamadaNacional` y `LlamadaInternacional` que implementan estos métodos de acuerdo a las reglas específicas de cada tipo de llamada.
 - Eliminamos el campo `tipoDeLlamada` y su getter de la clase `Llamada` ya que este se puede inferir a partir del tipo de subclase que se esté utilizando, tambien eliminamos el parametro tipoDeLlamada del constructor de Llamada.
@@ -454,10 +478,11 @@ public class LlamadaInternacional extends Llamada{
 
 ```
 
-### Refactor 4 Factory Method
+### 🚧 Refactor 4 Factory Method - Rename Variables
 
 - Creamos una clase `LlamadaFactory` con un método `crearLlamada` que se encarga de instanciar el tipo correcto de llamada según el tipo especificado. Esto centraliza la creación de objetos `Llamada` y facilita la extensión del sistema para incorporar nuevos tipos de llamadas en el futuro.
 - Modificamos el método `registrarLlamada()` de la clase `Empresa` para que utilice la fábrica de llamadas para crear el objeto de llamada correspondiente.
+- Renombramos las variables poco descriptivas
 
 ```java	
 public class LlamadaFactory {
@@ -473,7 +498,7 @@ public class LlamadaFactory {
     }
 }
 public class Empresa {
-	public Llamada registrarLlamada(Cliente origen, Cliente destino, String t, int duracion) {
+	public Llamada registrarLlamada(Cliente origen, Cliente destino, String tipo, int duracion) {
         Llamada llamada = LlamadaFactory.crearLlamada(t, origen.getNumeroTelefono(), destino.getNumeroTelefono(), duracion);
         this.llamadas.add(llamada);
         origen.agregarLlamada(llamada);
@@ -482,7 +507,7 @@ public class Empresa {
 }
 ```
 
-### Refactor 4 Reinventando la rueda - Move field - Rename variables 
+### 🚧 Refactor 4 Reinventando la rueda - Move field - Rename variables 
 
 - Eliminamos el for loop de la clase Cliente y lo reemplazamos por un stream y una operación de suma, lo cual simplifica el cálculo del monto total de las llamadas.
 - Creamos un método `computarMontoLlamada()` en la clase `Cliente` para calcular el monto de una llamada específica, teniendo en cuenta el descuento correspondiente.
@@ -494,7 +519,6 @@ public class Empresa {
 - Creamos una constante ``PORCENTAJE_IVA`` en la clase Llamada para representar el porcentaje de IVA que se debe sumar al costo de la llamada.
 
 ```java	
-
 public abstract class Cliente {		
 	public abstract double getDescuento();
 
@@ -600,9 +624,9 @@ public class Empresa {
 
 ---
 
-### Refactor 5
+### 🚧 Refactor 5
 
-*Malos Olores*
+🦨 *Malos Olores*
 
 - **Switch Statements:** El uso de switch para manejar diferentes formas de obtener un número (último, primero, aleatorio) puede complicar la extensión del código. Si decides agregar más formas de seleccionar un número, este switch crecerá en complejidad y tamaño.
 - **Magic Strings**: Las cadenas "ultimo", "primero", y "random" utilizadas en el `switch` son ejemplos de "magic strings". Estos valores están codificados directamente en la lógica, haciendo que el código sea más difícil de mantener y propenso a errores si se escribe incorrectamente en algún lugar.
@@ -644,11 +668,12 @@ public class GestorNumerosDisponibles {
 ```
 
 
-### Refactor 5 Replace Conditional Logic with Strategy - Replace Magic Strings with Class Type
+### 🚧 Refactor 5 Replace Conditional Logic with Strategy - Replace Magic Strings with Class Type
 
 - Basandonos en el patrón Strategy, creamos la interfaz ``Generador`` que varian las implementaciones que encapsulan los diferentes comportamientos (último, primero, aleatorio).
+- Creamos tres implementaciones de la interfaz ``Generador``: ``UltimoGenerador``, ``PrimeroGenerador``, y ``RandomGenerador``. Cada una de estas clases implementa el método ``obtenerNumeroLibre()`` de acuerdo a su comportamiento específico.
 - En lugar de usar cadenas para determinar el comportamiento, usamos los tipos de las clases directamente. Esto elimina la necesidad de cadenas mágicas y reduce la posibilidad de errores en tiempo de ejecución debido a cadenas mal escritas.
-
+- En los test hicimos una minima modificacion, en vez de pasar un string, pasamos una instancia de la clase que implementa el comportamiento deseado.
 
 ```java
 public interface Generador {    
@@ -692,23 +717,17 @@ public class GestorNumerosDisponibles {
 		this.tipoGenerador = generador;
 	}
 }
+class EmpresaTest {
+	@Test
+	void obtenerNumeroLibre() {
+		// por defecto es el ultimo
+		assertEquals("2214444559", this.sistema.obtenerNumeroLibre());
+			
+		this.sistema.getGestorNumeros().cambiarTipoGenerador(new PrimeroGenerador());
+		assertEquals("2214444554", this.sistema.obtenerNumeroLibre());
+
+		this.sistema.getGestorNumeros().cambiarTipoGenerador(new RandomGenerador());
+		assertNotNull(this.sistema.obtenerNumeroLibre());
+	}
+}
 ```
-
-# Codigo Final
-
-- [Cliente]()
-- [ClienteFactory]()
-- [ClientePersonaFisica]()
-- [ClientePersonaJuridica]()
-- [GestorNumerosDisponibles]()
-- [Llamada]()
-- [LlamadaFactory]()
-- [LlamadaInternacional]()
-- [Llamada Nacional]()
-- [Test]()
-
----
-
-
-
-

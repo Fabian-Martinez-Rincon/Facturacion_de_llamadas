@@ -8,8 +8,8 @@ public class Empresa {
 	private List<Llamada> llamadas = new ArrayList<Llamada>();
 	private GestorNumerosDisponibles guia = new GestorNumerosDisponibles();
 
-	public boolean agregarNumeroTelefono(String str) {
-		return guia.agregarNumeroTelefono(str);
+	public boolean agregarNumeroTelefono(String numero) {
+		return guia.agregarNumeroTelefono(numero);
 	}
 
 	public String obtenerNumeroLibre() {
@@ -22,8 +22,8 @@ public class Empresa {
 		return cliente;
 	}
 
-	public Llamada registrarLlamada(Cliente origen, Cliente destino, String t, int duracion) {
-        Llamada llamada = LlamadaFactory.crearLlamada(t, origen.getNumeroTelefono(), destino.getNumeroTelefono(), duracion);
+	public Llamada registrarLlamada(Cliente origen, Cliente destino, String tipo, int duracion) {
+        Llamada llamada = LlamadaFactory.crearLlamada(tipo, origen.getNumeroTelefono(), destino.getNumeroTelefono(), duracion);
         this.llamadas.add(llamada);
         origen.agregarLlamada(llamada);
         return llamada;

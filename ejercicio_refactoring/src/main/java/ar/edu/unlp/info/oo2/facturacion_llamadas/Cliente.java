@@ -16,6 +16,7 @@ public abstract class Cliente {
 	public void agregarLlamada(Llamada llamada) {
 		this.llamadas.add(llamada);
 	}
+	
 	public String getNombre() {
 		return nombre;
 	}
