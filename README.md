@@ -2,6 +2,10 @@
 <h1 align="center">👷 TP Refactoring<img
 src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjQ2OXN1eTRsd3BhNGp6Yml5MjMxazJzeGJ4cTYzenBxZHQyNzBnZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/PZ93mDmGf2z1xL7UjN/giphy.gif" height="32" /></h1>
 
+## Me quiero morir 💀
+
+![image](https://github.com/Fabian-Martinez-Rincon/Fabian-Martinez-Rincon/assets/55964635/8b1710cf-5715-48a4-a076-fe78663aff49)
+
 ---
 
 <h3 align="center">UML Inicial</h3>
